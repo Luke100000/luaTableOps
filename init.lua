@@ -3,7 +3,12 @@ local function getLambda(lambda)
 	if type(lambda) == "string" then
 		if not cache[lambda] then
 			local s = lambda:find("->")
-			local ok, f = load(string.format("return function(%s) return %s end", lambda:sub(1, s - 1), lambda:sub(s + 2)))
+			local ok, f
+			if s then
+				ok, f = load(string.format("return function(%s) return %s end", lambda:sub(1, s - 1), lambda:sub(s + 2)))
+			else
+				ok, f = load(string.format("return function(x) return %s end", lambda))
+			end
 			if ok then
 				cache[lambda] = ok()
 			else

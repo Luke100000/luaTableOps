@@ -25,14 +25,17 @@ local value = lambda(2)
 
 # apply functions
 print(array(1, 2, 3):filter("x -> x >= 2"):map("x -> x * 2"))
+print(array(1, 2, 3):filter("x >= 2"):map("x * 2"))
 ```
 
 ## Lambdas
 Lambdas are defined as an arbitrary amount of args (including none) and an expression separated by `->`.
+If `->` is missing, a single default arg `x` is assumed.
 ```lua
 local valid_1 = "x -> x * 2"
 local valid_2 = "a, b -> a + b"
 local valid_3 = "-> 5"
+local valid_4 = "x^2"
 
 local invalid_1 = "123"
 local invalid_2 = "x -> local c = x * 2 return c"
